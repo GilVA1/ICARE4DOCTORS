@@ -26,7 +26,7 @@ export async function GET({ url }) {
             return json({ error: 'No document found with the given ID' }, { status: 404 });
         }
 
-        return json({ ans: result.pulse }, { status: 200 });
+        return json({ ans: result }, { status: 200 });
     } catch (error) {
         console.error(error);
         return json({ error: 'Internal Server Error' }, { status: 500 });

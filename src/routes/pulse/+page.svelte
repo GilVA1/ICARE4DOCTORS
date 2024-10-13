@@ -42,8 +42,9 @@
 
 {#if render_pulses}
     {#each pulseData as data}
-        <h2> Pulse values for physician {data.id}:</h2>
-        <Pulse data={data.ans} />
+        <h2> Pulse values for physician {data.id}:</h2> 
+        <h3>Tired? {data.ans.fatigue? "YES":"NO"}</h3>
+        <Pulse data={data.ans.pulse} />
     {/each}
 {:else}
     <h1> Loading... </h1>
