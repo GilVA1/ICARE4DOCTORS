@@ -2,8 +2,8 @@ import cv2
 import dlib
 import numpy as np
 
-# Load the facial landmark predictor
-predictor_path = "shape_predictor_68_face_landmarks.dat"  # Change this path as needed
+
+predictor_path = "shape_predictor_68_face_landmarks.dat"  
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(predictor_path)
 
@@ -34,45 +34,45 @@ def analyze_and_calculate_pupil_iris(eye_region, gray_frame, eye_color_frame):
     pupil_radius = 0
     iris_radius = 0
 
-    # Calculate areas for pupil
+    
     if pupil_contours:
         largest_pupil = max(pupil_contours, key=cv2.contourArea)
         pupil_area = cv2.contourArea(largest_pupil)
 
-        if pupil_area > 10:  # Lowered minimum area for testing
+        if pupil_area > 10:  
             if len(largest_pupil) >= 5:
                 ellipse = cv2.fitEllipse(largest_pupil)
                 pupil_center = (int(ellipse[0][0] + x), int(ellipse[0][1] + y))
                 
-                # Calculate radius from pupil area
-                pupil_radius = int(np.sqrt(pupil_area / np.pi))  # Radius based on area
-                cv2.circle(eye_color_frame, pupil_center, pupil_radius, (0, 255, 0), 2)  # Green circle for pupil
+                
+                pupil_radius = int(np.sqrt(pupil_area / np.pi))  
+                cv2.circle(eye_color_frame, pupil_center, pupil_radius, (0, 255, 0), 2)  
 
-    # Calculate areas for iris
+    
     if iris_contours:
         largest_iris = max(iris_contours, key=cv2.contourArea)
         iris_area = cv2.contourArea(largest_iris)
 
-        if iris_area > 10:  # Lowered minimum area for testing
+        if iris_area > 10:  
             if len(largest_iris) >= 5:
                 moments = cv2.moments(largest_iris)
                 if moments["m00"] != 0:
                     iris_center = (int(moments["m10"] / moments["m00"] + x), int(moments["m01"] / moments["m00"] + y))
-                iris_radius = int(np.sqrt(iris_area / np.pi))  # Radius based on area
-                cv2.circle(eye_color_frame, iris_center, iris_radius, (255, 0, 0), 2)  # Blue circle for iris
+                iris_radius = int(np.sqrt(iris_area / np.pi))  
+                cv2.circle(eye_color_frame, iris_center, iris_radius, (255, 0, 0), 2)  
 
-    # Calculate pupil and iris area percentages
+    
     pupil_area_calculated = np.pi * (pupil_radius ** 2) if pupil_radius > 0 else 0
     iris_area_calculated = np.pi * (iris_radius ** 2) if iris_radius > 0 else 0
 
     percentage = 0
-    if iris_area_calculated > 0 and pupil_area_calculated <= iris_area_calculated:  # Add threshold check
+    if iris_area_calculated > 0 and pupil_area_calculated <= iris_area_calculated:  
         percentage = (pupil_area_calculated / iris_area_calculated) * 100
 
     return pupil_center, iris_center, pupil_area, iris_area, percentage if pupil_area_calculated <= iris_area_calculated else None
 
 def main():
-    cap = cv2.VideoCapture('/Users/albertomtz/Documents/test/white_eyes.mp4')  # Update path if needed
+    cap = cv2.VideoCapture('/Users/albertomtz/Documents/test/white_eyes.mp4')  
 
     left_eye_percentages = []
     right_eye_percentages = []
@@ -102,24 +102,24 @@ def main():
             if left_percentage is not None:
                 left_eye_percentages.append(left_percentage)
 
-            # Analyze and calculate pupil and iris for right eye
+            
             right_pupil_center, right_iris_center, right_pupil_area, right_iris_area, right_percentage = analyze_and_calculate_pupil_iris(
                 right_eye_points, gray, frame
             )
             if right_percentage is not None:
                 right_eye_percentages.append(right_percentage)
 
-        # Display the original frame with the pupil and iris markings
+        
         cv2.imshow("Pupil and Iris Tracking", frame)
 
-        # Press 'q' to quit the video stream
+       
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
     cap.release()
     cv2.destroyAllWindows()
 
-    # Calculate and print mean percentages
+    
     if left_eye_percentages:
         left_mean = np.mean(left_eye_percentages)
         print(f"Mean Left Eye Pupil Percentage: {left_mean:.2f}%")

@@ -2,13 +2,13 @@ import cv2
 import dlib
 import numpy as np
 
-# Load the facial landmark predictor
-predictor_path = "shape_predictor_68_face_landmarks.dat"  # Change this path as needed
+
+predictor_path = "shape_predictor_68_face_landmarks.dat"  
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(predictor_path)
 blink_count = 0
 
-# Function to check redness of the eye and count red and non-red pixels
+
 def check_eye_redness(eye_region):
     hsv = cv2.cvtColor(eye_region, cv2.COLOR_BGR2HSV)
 
@@ -45,9 +45,9 @@ def eye_aspect_ratio(eye_points):
     return ear
 
 def main():
-    global blink_count  # Access the global variable inside the function
+    global blink_count  
 
-    cap = cv2.VideoCapture('/Users/albertomtz/Documents/test/white_eyes.mp4')  # Update path if needed
+    cap = cv2.VideoCapture('/Users/albertomtz/Documents/test/white_eyes.mp4')  
     running = True
     blink_threshold = 0.2
     redness_percentages = []
@@ -98,8 +98,8 @@ def main():
 
     if redness_percentages:
         mean_redness = np.mean(redness_percentages)
-        # Determine if the eyes are red or not based on the mean redness
-        if mean_redness >= 80:  # You can adjust this threshold as needed
+        # DETERMINE IF EYES ARE RED OR NOT
+        if mean_redness >= 80:  
             print("The eyes are red.")
         else:
             print("The eyes are not red.")
