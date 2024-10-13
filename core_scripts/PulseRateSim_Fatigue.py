@@ -21,10 +21,10 @@ def send_heart_rate(beats_minute, user_id, fatigue_detected):
     result = heart_rate_collection.insert_one(heart_rate_data)
     print(f"Heart rate data inserted with ID: {result.inserted_id}")
 
-user = 55
+user = 170
 
 # Parámetros de la simulación
-n_samples = 150  # Número de muestras simuladas
+n_samples = 200  # Número de muestras simuladas
 time_interval = 0.5  # Intervalo de tiempo entre muestras (en segundos)
 baseline_heart_rate = 75  # Frecuencia cardíaca promedio inicial (BPM)
 variability = 2  # Variabilidad reducida (menos cambios a medida que aumenta la fatiga)
