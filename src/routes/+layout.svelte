@@ -13,7 +13,8 @@
 
     <nav class="nav-menu">
         <a href="/" class="nav-link"> TEAM VIEW </a>
-        <a href="individual" class="nav-link"> INDIVIDUAL VIEW </a>
+        <a href="/individual" class="nav-link"> INDIVIDUAL VIEW </a>
+        <a href="/pulse" class="nav-link">PULSE</a>
     </nav>
 
 </header>

@@ -3,11 +3,13 @@
     import Component from "../lib/comp.svelte";
     import { onMount } from 'svelte';
     import Slot from "$lib/slot.svelte";
+    
     // TEAM VIEW, QUERY ALL TEAM AVERAGES
 
     let fetch_array=[];
     let error;
     let render_now=0;
+
 
     // Function to get all the different teams.
     async function getAllTeams(){
@@ -68,11 +70,16 @@
 {#each fetch_array as fetch_data} 
         <Slot title = {"Team "+ fetch_data.teamId + ":" + fetch_data.name} dataEntries = {fetch_data} />
 {/each}
+
+
 {:else}
 
 <h1> LOADING... </h1>
 
 {/if}
+
+
+
 
 
 
