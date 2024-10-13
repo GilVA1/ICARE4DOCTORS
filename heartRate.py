@@ -29,5 +29,6 @@ if __name__ == "__main__":
     
     beats_minute = 72
     user_id = 77
+    time=datetime.now()
 
-    send_heart_rate(beats_minute, user_id)
+    send_heart_rate(beats_minute, user_id,time)
