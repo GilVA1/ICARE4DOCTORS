@@ -8,7 +8,7 @@ export async function GET({url}){
         try {
 
         var my_team = Number(url.searchParams.get('teamId'));
-        //console.log(my_team,"my team")
+        
 
 
         const client = await connectToDatabase();
@@ -20,8 +20,6 @@ export async function GET({url}){
 
         const department=t_name.name;
         
-        //console.log("T_NAME",department);
-        // DEPARTMENT HAS THE TEAM NAME
 
         // Get an array of Doctors with the corresponding team id
         collection = client.db('HOSPITAL').collection('DOCTOR');
@@ -53,9 +51,6 @@ export async function GET({url}){
         sums.teamId=my_team;
         sums.name=department;
 
-        //console.log("doc count",doctorCount)
-        
-        //console.log("response",sums)
 
         return json({success:true,result:sums},{status:200})
         }

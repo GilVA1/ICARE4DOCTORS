@@ -18,7 +18,7 @@
     <ul class="data-list">
         {#each dataArray as [key, value]}
             {#if key !="teamId" && key !="name" && key !="_id"} 
-                <li class="data-item">{key}: <span class="data-value">{value}</span></li>
+                <li class="data-item">{key}: <span class="data-value">{typeof value === 'number' ? value.toFixed(3) : value}</span></li>
             {/if}
         {/each}
     </ul>   

@@ -38,14 +38,13 @@
 
 </script>
 
+<h1> Pulse rate for physicians over time </h1>
 
 {#if render_pulses}
     {#each pulseData as data}
-        <h1> Pulse value for physician {data.id}</h1>
+        <h2> Pulse values for physician {data.id}:</h2>
         <Pulse data={data.ans} />
     {/each}
 {:else}
     <h1> Loading... </h1>
 {/if}
-
-

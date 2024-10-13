@@ -12,7 +12,7 @@ import Slot from "$lib/slot.svelte";
         const res =await fetch("http://localhost:5173/api/Doctor")
         const res2 = await res.json();
         console.log(res2)
-        return res2.result // LIST OF DOCTOR JSONS
+        return res2.result 
     }
 
 
@@ -24,7 +24,7 @@ onMount(async () =>{
 
 </script>
 
-<h1>Individual values for each doctor</h1>
+<h1>Values for each individual doctor</h1>
 
 {#if render_now}
 {#each doctors as doc} 

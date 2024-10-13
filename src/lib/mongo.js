@@ -7,7 +7,7 @@ const client = new MongoClient(uri);
 export async function connectToDatabase() {
     try {
         await client.connect();
-        //console.log("Connected to MongoDB");
+       
         return client;
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
@@ -21,5 +21,3 @@ export async function closeDatabaseConnection() {
 }
 
 connectToDatabase()
-//setTimeout(() => {console.log("hey")},7000)
-//closeDatabaseConnection()
